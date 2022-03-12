@@ -1,0 +1,9 @@
+{
+    "stations": [{
+        "id": "c9c0ebcc-5e86-4e4c-8d59-f985c9b2121c",
+        "name": "Total (Richtung Drehscheibe)"
+    }, {
+        "id": "938c082c-e2c6-4292-8b2c-cdf83036e555",
+        "name": "Esso (Richtung Bahnhof)"
+    }]
+}

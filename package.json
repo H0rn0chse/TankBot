@@ -1,0 +1,30 @@
+{
+  "name": "tankbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/H0rn0chse/TankBot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/H0rn0chse/TankBot/issues"
+  },
+  "homepage": "https://github.com/H0rn0chse/TankBot#readme",
+  "dependencies": {
+    "better-sqlite3": "^7.5.0",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "node-fetch": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0"
+  }
+}
