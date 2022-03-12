@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import * as dotenv from "dotenv";
 
 import { CommandManager } from "./scripts/CommandManager.js";
@@ -12,12 +11,6 @@ import { stop } from "./scripts/commands/stop.js";
 import { REREGISTER_INTERACTIONS } from "./globals.js";
 
 dotenv.config();
-
-// localData
-const dir = "./local";
-if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-}
 
 const commands = [
     addDebug,

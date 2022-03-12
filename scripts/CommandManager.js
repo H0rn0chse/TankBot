@@ -2,9 +2,14 @@ import * as path from "path";
 import * as fs from "fs";
 import { Debug } from "./Debug.js";
 import { DiscordManager } from "./DiscordManager.js";
-import { dirname } from "../globals.js";
+import { LOCAL_FOLDER, dirname } from "../globals.js";
 
-const configFile = path.join(dirname, "local", "config.json");
+const dir = path.join(dirname, LOCAL_FOLDER);
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
+
+const configFile = path.join(dirname, LOCAL_FOLDER, "config.json");
 const COMPONENT = "CommandManager";
 
 class _CommandManager {

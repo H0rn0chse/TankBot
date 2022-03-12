@@ -25,3 +25,5 @@ export const TYPES = {
 };
 
 export const REREGISTER_INTERACTIONS = false;
+
+export const LOCAL_FOLDER = "local";

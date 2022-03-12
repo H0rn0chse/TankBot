@@ -1,4 +1,13 @@
+import * as fs from "fs";
+import * as path from "path";
 import Database from "better-sqlite3";
+
+import { LOCAL_FOLDER, dirname } from "../globals.js";
+
+const dir = path.join(dirname, LOCAL_FOLDER);
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
 
 class _DatabaseManager {
     constructor () {
