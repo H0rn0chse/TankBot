@@ -23,3 +23,5 @@ export const TYPES = {
     e10: "Super E10",
     diesel: "Diesel"
 };
+
+export const REREGISTER_INTERACTIONS = false;

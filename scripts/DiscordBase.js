@@ -4,6 +4,7 @@ import fetch from "node-fetch";
 
 import { CommandManager } from "./CommandManager.js";
 import { Deferred } from "./Deferred.js";
+import { REREGISTER_INTERACTIONS } from "../globals.js";
 
 dotenv.config();
 const debugRequest = false;
@@ -103,7 +104,9 @@ export class DiscordBase {
         this.token = token;
         await this.client.login(token);
         await this.setStatus();
-        await this.deleteAllCommands();
+        if (REREGISTER_INTERACTIONS) {
+            await this.deleteAllCommands();
+        }
 
         return this.readyDeferred.promise;
     }
