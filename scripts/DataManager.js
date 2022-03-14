@@ -115,15 +115,29 @@ class _DataManger {
                     outputRelevant.push(station);
                 }
             });
+
+            // simplification only watch e5 price
+            const lastPrice = lastPrices.e5;
+            const newPrice = data.e5;
+            const stationName = this.getStationName(station);
+            CommandManager.invokeCommand("checkAlarm", stationName, lastPrice, newPrice);
         });
 
+        // save new data
         if (dataChanged) {
             await this.loadCache();
         }
 
         if (outputRelevant.length) {
-            CommandManager.invokeCommand("sendOutput", outputRelevant);
+            //CommandManager.invokeCommand("sendOutput", outputRelevant);
         }
+    }
+
+    getStationName (stationId) {
+        const stationDetails = this.stations.find((details) => {
+            return details.id === stationId;
+        });
+        return stationDetails?.name || "";
     }
 
     getCurrentPrices () {
@@ -134,13 +148,9 @@ class _DataManger {
                 return;
             }
 
-            const stationDetails = this.stations.find((details) => {
-                return details.id === station;
-            });
-
             const stationData = {
                 id: station,
-                name: stationDetails?.name || "",
+                name: this.getStationName(station),
                 prices: []
             };
 

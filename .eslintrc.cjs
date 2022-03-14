@@ -15,6 +15,7 @@ module.exports = {
         "semi": ["error", "always"],
         "eol-last": ["error", "always"],
         "no-unused-vars": "warn",
-        "indent": ["error", 4, { "SwitchCase": 1 }]
+        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "no-warning-comments": "warn",
     }
 };

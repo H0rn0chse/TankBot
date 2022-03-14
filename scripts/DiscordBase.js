@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 
 import { CommandManager } from "./CommandManager.js";
 import { Deferred } from "./Deferred.js";
-import { REREGISTER_INTERACTIONS } from "../globals.js";
+import { REMOVE_ALL_INTERACTIONS } from "../globals.js";
 
 dotenv.config();
 const debugRequest = false;
@@ -77,20 +77,9 @@ export class DiscordBase {
     /**
      * https://discord.com/developers/docs/interactions/application-commands#registering-a-command
      * @param {object} body
-     * @returns {Promise<boolean} Resolves whether the request was successful or not
      */
     async registerCommand (body) {
-        let result = null;
-        try {
-            result = await this._request("POST", `/applications/${this.applicationId}/guilds/${this.guildId}/commands`, body);
-        } catch (err) {
-            console.error(err);
-        }
-
-        if (!result) {
-            return false;
-        }
-        return true;
+        await this._request("POST", `/applications/${this.applicationId}/guilds/${this.guildId}/commands`, body);
     }
 
     async deleteAllCommands () {
@@ -104,7 +93,7 @@ export class DiscordBase {
         this.token = token;
         await this.client.login(token);
         await this.setStatus();
-        if (REREGISTER_INTERACTIONS) {
+        if (REMOVE_ALL_INTERACTIONS) {
             await this.deleteAllCommands();
         }
 
@@ -157,6 +146,11 @@ export class DiscordBase {
         } else if (timeout !== false) {
             this.sentMessages.push(sentMessage);
         }
+    }
+
+    async getUser (userId) {
+        const user = await this.client.users.fetch(userId);
+        return user;
     }
 
     async dm (user, message) {

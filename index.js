@@ -9,6 +9,7 @@ import { addDebug, removeDebug, sendDebug } from "./scripts/commands/debug.js";
 import { addOutput, removeOutput, sendOutput } from "./scripts/commands/output.js";
 import { stop } from "./scripts/commands/stop.js";
 import { REREGISTER_INTERACTIONS } from "./globals.js";
+import { checkAlarm, setAlarm } from "./scripts/commands/alarm.js";
 
 dotenv.config();
 
@@ -19,6 +20,8 @@ const commands = [
     addOutput,
     removeOutput,
     sendOutput,
+    setAlarm,
+    checkAlarm,
     stop
 ];
 
@@ -58,8 +61,12 @@ async function registerCommand (command) {
         console.log(`Adding command "${command.name}"`);
         if (command.data && command.interaction) {
             console.log(" ...as interaction");
-            if (REREGISTER_INTERACTIONS) {
-                await DiscordManager.registerCommand(command.data);
+            try {
+                if (REREGISTER_INTERACTIONS) {
+                    await DiscordManager.registerCommand(command.data);
+                }
+            } catch (err) {
+                console.log("🟨...did not update the interaction");
             }
             CommandManager.setInteraction(command.name, command.interaction);
         }
