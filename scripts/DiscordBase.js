@@ -4,7 +4,6 @@ import fetch from "node-fetch";
 
 import { CommandManager } from "./CommandManager.js";
 import { Deferred } from "./Deferred.js";
-import { REMOVE_ALL_INTERACTIONS } from "../globals.js";
 
 dotenv.config();
 const debugRequest = false;
