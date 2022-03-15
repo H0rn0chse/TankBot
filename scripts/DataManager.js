@@ -129,7 +129,7 @@ class _DataManger {
         }
 
         if (outputRelevant.length) {
-            //CommandManager.invokeCommand("sendOutput", outputRelevant);
+            CommandManager.invokeCommand("sendOutput", outputRelevant);
         }
     }
 
