@@ -29,7 +29,7 @@ export class DiscordBase {
         });
     }
 
-    async _request (method, endpoint, body = "", headers = {}) {
+    async _request (method, endpoint, body = "", headers = {}, debug = false) {
         const url = `https://discord.com/api/${apiVersion}${endpoint}`;
         const options = {
             method,
@@ -47,7 +47,7 @@ export class DiscordBase {
 
         options.headers.Authorization = `Bot ${this.token}`;
 
-        if (debugRequest) {
+        if (debug || debugRequest) {
             console.log(url);
             console.log(options);
         }
@@ -67,7 +67,7 @@ export class DiscordBase {
             throw new Error(`Request failed: ${response.statusText}`);
         }
 
-        if (debugRequest) {
+        if (debug || debugRequest) {
             console.log(`request successful: ${response.status}`);
             console.log(JSON.stringify(result, null, 4));
         }
@@ -82,20 +82,30 @@ export class DiscordBase {
         await this._request("POST", `/applications/${this.applicationId}/guilds/${this.guildId}/commands`, body);
     }
 
-    async deleteAllCommands () {
+    async updateBulkCommands (body) {
+        await this._request("PUT", `/applications/${this.applicationId}/guilds/${this.guildId}/commands`, body);
+    }
+
+    async getAllCommands () {
         const commands = await this._request("GET", `/applications/${this.applicationId}/guilds/${this.guildId}/commands`);
+        return commands;
+    }
+
+    async deleteAllCommands () {
+        const commands = await this.getAllCommands();
         for (const command of commands) {
-            await this._request("DELETE", `/applications/${this.applicationId}/guilds/${this.guildId}/commands/${command.id}`);
+            await this.deleteCommand(command.id);
         }
+    }
+
+    async deleteCommand (commandId) {
+        return this._request("DELETE", `/applications/${this.applicationId}/guilds/${this.guildId}/commands/${commandId}`);
     }
 
     async login (token) {
         this.token = token;
         await this.client.login(token);
         await this.setStatus();
-        if (REMOVE_ALL_INTERACTIONS) {
-            await this.deleteAllCommands();
-        }
 
         return this.readyDeferred.promise;
     }

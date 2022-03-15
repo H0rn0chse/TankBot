@@ -24,9 +24,4 @@ export const TYPES = {
     diesel: "Diesel"
 };
 
-// Removes all registered interactions
-export const REMOVE_ALL_INTERACTIONS = false;
-// Overwrites all current interactions
-export const REREGISTER_INTERACTIONS = true;
-
 export const LOCAL_FOLDER = "local";
