@@ -71,6 +71,20 @@ class _DatabaseManager {
         return this.getStmt.all({ timestamp });
     }
 
+    getLastEntries (amount) {
+        if (!this.getLastStmt) {
+            this.getLastStmt = this.db.prepare(`
+            SELECT *
+            FROM entries
+            ORDER BY
+                timestamp DESC
+            LIMIT @amount
+            ;`);
+        }
+
+        return this.getLastStmt.all({ amount });
+    }
+
     getLastEntry (stations) {
         const result = [];
         if (!this.lastStmt) {

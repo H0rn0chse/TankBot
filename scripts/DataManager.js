@@ -72,7 +72,7 @@ class _DataManger {
     fetchData () {
         DiscordManager.setStatus("for new Data", ACTIVITY_TYPES.WATCHING);
         Debug.log("Fetching data", COMPONENT);
-        fetch(this.getPriceUrl())
+        return fetch(this.getPriceUrl())
             .then(res => res.json())
             .then(async (json) => {
                 await this.checkData(json);
@@ -111,6 +111,7 @@ class _DataManger {
             };
 
             if (lastPrices === null || (data.e5 !== lastPrices.e5 || data.e10 !== lastPrices.e10 || data.diesel !== lastPrices.diesel)) {
+                Debug.log(`Saving new entry for ${station}`);
                 DatabaseManager.addEntry(station, data, timestamp);
                 dataChanged = true;
             }

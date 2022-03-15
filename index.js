@@ -10,6 +10,8 @@ import { addOutput, removeOutput, sendOutput } from "./scripts/commands/output.j
 import { stop } from "./scripts/commands/stop.js";
 import { checkAlarm, setAlarm } from "./scripts/commands/alarm.js";
 import { ping } from "./scripts/commands/ping.js";
+import { fetch } from "./scripts/commands/fetch.js";
+import { debugHistory } from "./scripts/commands/debugHistory.js";
 
 dotenv.config();
 
@@ -23,7 +25,9 @@ const commands = [
     setAlarm,
     checkAlarm,
     stop,
-    ping
+    ping,
+    fetch,
+    debugHistory
 ];
 
 DiscordManager.login(process.env.DISCORD_TOKEN)
@@ -74,7 +78,7 @@ async function registerCommands (newCommands, oldCommands) {
         const command = oldCommandMap[name];
         if (!newCommandMap[name]) {
 
-            console.log(`🟨 Deleting command ${command.name}`);
+            console.log(`🟨 Deleting command "${command.name}"`);
             DiscordManager.deleteCommand(command.id);
         }
     }
