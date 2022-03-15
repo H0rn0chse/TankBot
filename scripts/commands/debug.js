@@ -1,5 +1,7 @@
 import { DiscordManager } from "../DiscordManager.js";
 
+const COMPONENT = "commands/debug";
+
 export const addDebug = {
     name: "add_debug",
     data: {

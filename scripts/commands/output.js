@@ -1,6 +1,8 @@
 import { DataManger } from "../DataManager.js";
 import { DiscordManager } from "../DiscordManager.js";
 
+const COMPONENT = "commands/output";
+
 export const addOutput = {
     name: "add_output",
     data: {

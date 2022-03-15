@@ -1,5 +1,7 @@
 import { DiscordManager } from "../DiscordManager.js";
 
+const COMPONENT = "commands/stop";
+
 export const stop = {
     name: "stop",
     data: {

@@ -1,3 +1,5 @@
+const COMPONENT = "commands/ping";
+
 export const ping = {
     name: "ping",
     data: {

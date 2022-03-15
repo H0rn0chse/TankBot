@@ -1,7 +1,7 @@
 import { Debug } from "../Debug.js";
 import { DiscordManager } from "../DiscordManager.js";
 
-const COMPONENT = "COMMAND_ALARM";
+const COMPONENT = "commands/alarm";
 
 export const setAlarm = {
     name: "set_alarm",
