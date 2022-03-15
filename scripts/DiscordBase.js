@@ -4,6 +4,7 @@ import fetch from "node-fetch";
 
 import { CommandManager } from "./CommandManager.js";
 import { Deferred } from "./Deferred.js";
+import { ACTIVITY_TYPES } from "../globals.js";
 
 dotenv.config();
 const debugRequest = false;
@@ -109,7 +110,7 @@ export class DiscordBase {
         return this.readyDeferred.promise;
     }
 
-    async setStatus (name = "Idling", type = "COMPETING") {
+    async setStatus (name = "the Idle Game", type = ACTIVITY_TYPES.PLAYING) {
         await this.client.user.setActivity({
             name: name,
             type: type,

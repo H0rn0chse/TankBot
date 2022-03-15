@@ -1,10 +1,11 @@
 import * as dotenv from "dotenv";
 import fetch from "node-fetch";
 
-import { REFRESH_TIMEOUT, RELEVANT_TYPES, STATIONS, TYPES } from "../globals.js";
+import { ACTIVITY_TYPES, REFRESH_TIMEOUT, RELEVANT_TYPES, STATIONS, TYPES } from "../globals.js";
 import { DatabaseManager } from "./DatabaseManager.js";
 import { CommandManager } from "./CommandManager.js";
 import { Debug } from "./Debug.js";
+import { DiscordManager } from "./DiscordManager.js";
 
 
 dotenv.config();
@@ -69,6 +70,7 @@ class _DataManger {
     }
 
     fetchData () {
+        DiscordManager.setStatus("for new Data", ACTIVITY_TYPES.WATCHING);
         Debug.log("Fetching data", COMPONENT);
         fetch(this.getPriceUrl())
             .then(res => res.json())
@@ -78,6 +80,9 @@ class _DataManger {
             .catch((err) => {
                 Debug.error("Data Fetch failed", COMPONENT);
                 Debug.error(err, COMPONENT);
+            })
+            .finally(() => {
+                DiscordManager.setStatus();
             });
     }
 

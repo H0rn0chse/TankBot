@@ -25,3 +25,12 @@ export const TYPES = {
 };
 
 export const LOCAL_FOLDER = "local";
+
+export const ACTIVITY_TYPES = {
+    PLAYING: "PLAYING",
+    STREAMING: "STREAMING",
+    LISTENING: "LISTENING",
+    WATCHING: "WATCHING",
+    CUSTOM: "CUSTOM",
+    COMPETING: "COMPETING",
+};

@@ -2,7 +2,7 @@ import * as path from "path";
 import * as fs from "fs";
 import { Debug } from "./Debug.js";
 import { DiscordManager } from "./DiscordManager.js";
-import { LOCAL_FOLDER, dirname } from "../globals.js";
+import { LOCAL_FOLDER, dirname, ACTIVITY_TYPES } from "../globals.js";
 
 const dir = path.join(dirname, LOCAL_FOLDER);
 if (!fs.existsSync(dir)){
@@ -109,6 +109,8 @@ class _CommandManager {
     async execInteraction (name, interaction) {
         const handler = this.interactions[name];
 
+        DiscordManager.setStatus("against new challenges", ACTIVITY_TYPES.COMPETING);
+
         if (!handler) {
             await interaction.reply(`The command ${name} does not have a handler!`);
         } else {
@@ -118,6 +120,8 @@ class _CommandManager {
                 Debug.error(err.message);
             }
         }
+
+        DiscordManager.setStatus();
     }
 }
 
