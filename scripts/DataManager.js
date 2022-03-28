@@ -96,7 +96,7 @@ class _DataManger {
         const outputRelevant = [];
         let dataChanged = false;
 
-        Object.keys(newData.prices).forEach((station) => {
+        const promises = Object.keys(newData.prices).map(async (station) => {
             const prices = newData.prices[station];
             const lastPrices = this.lastResponse[station];
 
@@ -126,16 +126,19 @@ class _DataManger {
             const lastPrice = lastPrices.e5;
             const newPrice = data.e5;
             const stationName = this.getStationName(station);
-            CommandManager.invokeCommand("checkAlarm", stationName, lastPrice, newPrice);
+            await CommandManager.invokeCommand("checkAlarm", stationName, lastPrice, newPrice);
         });
+        await Promise.all(promises);
 
         // save new data
         if (dataChanged) {
             await this.loadCache();
         }
 
+        await CommandManager.invokeCommand("sendDaily");
+
         if (outputRelevant.length) {
-            CommandManager.invokeCommand("sendOutput", outputRelevant);
+            await CommandManager.invokeCommand("sendOutput", outputRelevant);
         }
     }
 

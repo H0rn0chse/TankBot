@@ -1,4 +1,5 @@
 import { STATIONS } from "../../globals.js";
+import { CommandManager } from "../CommandManager.js";
 import { DatabaseManager } from "../DatabaseManager.js";
 
 const COMPONENT = "commands/stats";
@@ -12,16 +13,6 @@ export const stats = {
     },
     interaction: statsInteraction
 };
-
-function getToday () {
-    const now = new Date();
-    const day = now.getDate().toString().padStart(2, "0");
-    const month = (now.getMonth() + 1).toString().padStart(2, "0");
-    const year = now.getFullYear().toString();
-    const dateString = `${month}.${day}.${year}`;
-    const today = new Date(dateString);
-    return today;
-}
 
 async function statsInteraction (interaction) {
     await interaction.deferReply({ ephemeral: true });
@@ -51,6 +42,16 @@ async function statsInteraction (interaction) {
     });
 
     interaction.editReply({ content: response, ephemeral: true });
+}
+
+function getToday () {
+    const now = new Date();
+    const day = now.getDate().toString().padStart(2, "0");
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const year = now.getFullYear().toString();
+    const dateString = `${month}.${day}.${year}`;
+    const today = new Date(dateString);
+    return today;
 }
 
 function intToPrice (int) {

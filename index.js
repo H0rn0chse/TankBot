@@ -15,6 +15,7 @@ import { ping } from "./scripts/commands/ping.js";
 import { fetch } from "./scripts/commands/fetch.js";
 import { debugHistory } from "./scripts/commands/debugHistory.js";
 import { stats } from "./scripts/commands/stats.js";
+import { addDaily, removeDaily, sendDaily } from "./scripts/commands/daily.js";
 
 dotenv.config();
 
@@ -53,7 +54,10 @@ const commands = [
     ping,
     fetch,
     debugHistory,
-    stats
+    stats,
+    addDaily,
+    removeDaily,
+    sendDaily
 ];
 
 DiscordManager.login(process.env.DISCORD_TOKEN)
