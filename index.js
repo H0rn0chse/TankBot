@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+import * as fs from "fs";
 
 import { CommandManager } from "./scripts/CommandManager.js";
 import { DiscordManager } from "./scripts/DiscordManager.js";
@@ -12,8 +13,31 @@ import { checkAlarm, setAlarm } from "./scripts/commands/alarm.js";
 import { ping } from "./scripts/commands/ping.js";
 import { fetch } from "./scripts/commands/fetch.js";
 import { debugHistory } from "./scripts/commands/debugHistory.js";
+import { dirname } from "./globals.js";
 
 dotenv.config();
+
+process.on("SIGINT", () => {
+    fs.appendFileSync(`${dirname}/process.log`, "Received SIGINT\n");
+    try {
+        DiscordManager.logoff();
+        DataManger.stopListen();
+    } catch (err) {
+        console.error(err);
+    }
+
+    process.exit();
+});
+
+//emitted when an uncaught JavaScript exception bubbles
+process.on("uncaughtException", (err) => {
+    fs.appendFileSync(`${dirname}/process.log`, `Caught exception: ${err}\n${err.stack || " no stack"}\n`);
+});
+
+//emitted whenever a Promise is rejected and no error handler is attached to it
+process.on("unhandledRejection", async (err, promise) => {
+    fs.appendFileSync(`${dirname}/process.log`, `Unhandled Rejection: ${err}\n${err.stack || " no stack"}\n`);
+});
 
 const commands = [
     addDebug,
@@ -54,12 +78,6 @@ DiscordManager.login(process.env.DISCORD_TOKEN)
     .catch((err) => {
         console.error(err);
     });
-
-process.on("SIGINT", () => {
-    //DataManger.stopListen();
-    DiscordManager.logoff();
-    process.exit();
-});
 
 async function registerCommands (newCommands, oldCommands) {
     const newCommandMap = newCommands.reduce((map, command) => {

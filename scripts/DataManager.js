@@ -82,7 +82,7 @@ class _DataManger {
                 Debug.error(err, COMPONENT);
             })
             .finally(() => {
-                DiscordManager.setStatus();
+                return DiscordManager.setStatus();
             });
     }
 
