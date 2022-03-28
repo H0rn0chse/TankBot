@@ -1,6 +1,6 @@
 import { DatabaseManager } from "../DatabaseManager.js";
 
-const COMPONENT = "commands/fetch";
+const COMPONENT = "commands/debugHistory";
 
 export const debugHistory = {
     name: "debug_history",

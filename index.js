@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 
+import { dirname } from "./globals.js";
 import { CommandManager } from "./scripts/CommandManager.js";
 import { DiscordManager } from "./scripts/DiscordManager.js";
 import { DataManger } from "./scripts/DataManager.js";
@@ -13,7 +14,7 @@ import { checkAlarm, setAlarm } from "./scripts/commands/alarm.js";
 import { ping } from "./scripts/commands/ping.js";
 import { fetch } from "./scripts/commands/fetch.js";
 import { debugHistory } from "./scripts/commands/debugHistory.js";
-import { dirname } from "./globals.js";
+import { stats } from "./scripts/commands/stats.js";
 
 dotenv.config();
 
@@ -51,7 +52,8 @@ const commands = [
     stop,
     ping,
     fetch,
-    debugHistory
+    debugHistory,
+    stats
 ];
 
 DiscordManager.login(process.env.DISCORD_TOKEN)
