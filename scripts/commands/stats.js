@@ -33,11 +33,11 @@ async function statsInteraction (interaction) {
             const end = getEndDate(today, i);
             const entries = filterEntries(result, station.id, start.getTime(), end.getTime());
 
-            if (entries.length === 0) {
-                return;
+            if (!entries.length) {
+                continue;
             }
 
-            response += `\n${getDayName(start)}    ⇩${intToPrice(getLow(entries, "e5"))}    ⇧${intToPrice(getHigh(entries, "e5"))}`;
+            response += `\n${getDayName(start)}        ⇩${intToPrice(getLow(entries, "e5"))}    ⇧${intToPrice(getHigh(entries, "e5"))}`;
         }
     });
 
