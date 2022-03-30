@@ -33,12 +33,12 @@ process.on("SIGINT", () => {
 
 //emitted when an uncaught JavaScript exception bubbles
 process.on("uncaughtException", (err) => {
-    fs.appendFileSync(`${dirname}/process.log`, `Caught exception: ${err}\n${err.stack || " no stack"}\n`);
+    fs.appendFileSync(`${dirname}/process.log`, `${new Date().toISOString()} - Caught exception: ${err}\n${err.stack || " no stack"}\n`);
 });
 
 //emitted whenever a Promise is rejected and no error handler is attached to it
 process.on("unhandledRejection", async (err, promise) => {
-    fs.appendFileSync(`${dirname}/process.log`, `Unhandled Rejection: ${err}\n${err.stack || " no stack"}\n`);
+    fs.appendFileSync(`${dirname}/process.log`, `${new Date().toISOString()} - Unhandled Rejection: ${err}\n${err.stack || " no stack"}\n`);
 });
 
 const commands = [
