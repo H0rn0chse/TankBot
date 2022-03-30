@@ -1,3 +1,4 @@
+import { console } from "../globals.js";
 import { CommandManager } from "./CommandManager.js";
 
 class _Debug {

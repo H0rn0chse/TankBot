@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 
 import { CommandManager } from "./CommandManager.js";
 import { Deferred } from "./Deferred.js";
-import { ACTIVITY_TYPES } from "../globals.js";
+import { ACTIVITY_TYPES, console } from "../globals.js";
 
 dotenv.config();
 const debugRequest = false;

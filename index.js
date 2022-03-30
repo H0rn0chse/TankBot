@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 
-import { dirname } from "./globals.js";
+import { console, dirname } from "./globals.js";
 import { CommandManager } from "./scripts/CommandManager.js";
 import { DiscordManager } from "./scripts/DiscordManager.js";
 import { DataManger } from "./scripts/DataManager.js";
@@ -20,7 +20,7 @@ import { addDaily, removeDaily, sendDaily } from "./scripts/commands/daily.js";
 dotenv.config();
 
 process.on("SIGINT", () => {
-    fs.appendFileSync(`${dirname}/process.log`, "Received SIGINT\n");
+    fs.appendFileSync(`${dirname}/process.log`, `${new Date().toISOString()} - Received SIGINT\n`);
     try {
         DiscordManager.logoff();
         DataManger.stopListen();

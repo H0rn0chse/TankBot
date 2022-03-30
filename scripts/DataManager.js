@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import fetch from "node-fetch";
 
-import { ACTIVITY_TYPES, REFRESH_TIMEOUT, RELEVANT_TYPES, STATIONS, TYPES } from "../globals.js";
+import { ACTIVITY_TYPES, console, REFRESH_TIMEOUT, RELEVANT_TYPES, STATIONS, TYPES } from "../globals.js";
 import { DatabaseManager } from "./DatabaseManager.js";
 import { CommandManager } from "./CommandManager.js";
 import { Debug } from "./Debug.js";

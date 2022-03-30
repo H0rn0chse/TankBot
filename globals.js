@@ -1,5 +1,26 @@
+import { error, log, warn } from "console";
 import * as path from "path";
 import { fileURLToPath } from "url";
+
+const debug = false;
+
+export const console = {
+    log: (...args) => {
+        if (debug) {
+            log(...args);
+        }
+    },
+    warn: (...args) => {
+        if (debug) {
+            warn(...args);
+        }
+    },
+    error: (...args) => {
+        if (debug) {
+            error(...args);
+        }
+    }
+};
 
 const filename = fileURLToPath(import.meta.url);
 export const dirname = path.dirname(filename);

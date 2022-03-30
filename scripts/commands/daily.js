@@ -98,13 +98,18 @@ async function invokeSendDaily () {
             const highValue = getHigh(entries, "e5");
             const lowValue = getLow(entries, "e5");
 
-            entries.forEach((entry, index) => {
+            const log = [];
+            entries.forEach((entry) => {
                 // skip duplicates
-                const lastEntry = entries[index - 1];
-                if (lastEntry && entry.e5 === lastEntry.e5) {
-                    return;
+                if (log.length) {
+                    const lastValue = log[log.length - 1];
+                    if (entry.e5 === lastValue) {
+                        return;
+                    }
                 }
 
+
+                log.push(entry.e5);
                 if (entry.e5 === highValue) {
                     message += `\n${getClock(entry.timestamp)}    ${intToPrice(entry.e5)} (max)`;
                 } else if (entry.e5 === lowValue) {
