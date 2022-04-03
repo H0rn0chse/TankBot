@@ -106,8 +106,9 @@ async function sendDebugInvoke (msg) {
     if (!Array.isArray(this.config.debugChannels)) {
         return;
     }
-    this.config.debugChannels.forEach((channel) => {
-        DiscordManager.send(channel, msg);
+    const promises = this.config.debugChannels.map((channel) => {
+        return DiscordManager.send(channel, msg, false);
     });
+    return Promise.all(promises);
 }
 

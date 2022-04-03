@@ -5,10 +5,12 @@ import fetch from "node-fetch";
 import { CommandManager } from "./CommandManager.js";
 import { Deferred } from "./Deferred.js";
 import { ACTIVITY_TYPES, console } from "../globals.js";
+import { Debug } from "./Debug.js";
 
 dotenv.config();
 const debugRequest = false;
 const apiVersion = "v9";
+const COMPONENT = "DiscordBase";
 
 export class DiscordBase {
     constructor () {
@@ -146,11 +148,20 @@ export class DiscordBase {
         }
     }
 
-    async send (channel, message, timeout) {
+    async send (channel, message, timeout = false) {
         if (typeof channel === "string") {
             channel = await this.channelManager.fetch(channel);
         }
-        const sentMessage = await channel.send(message);
+        let sentMessage;
+        try {
+            sentMessage = await channel.send(message);
+        } catch (err) {
+            Debug.logToFile(err);
+        }
+        if (!sentMessage) {
+            return;
+        }
+
         if (timeout) {
             return sentMessage.delete({ timeout: timeout * 1000 });
         } else if (timeout !== false) {

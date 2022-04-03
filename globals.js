@@ -2,7 +2,7 @@ import { error, log, warn } from "console";
 import * as path from "path";
 import { fileURLToPath } from "url";
 
-const debug = false;
+const debug = true;
 
 export const console = {
     log: (...args) => {

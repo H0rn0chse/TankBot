@@ -95,7 +95,7 @@ async function sendOutputInvoke (relevantStations) {
 
     const details = DataManger.getCurrentPrices();
 
-    details.forEach((detail) => {
+    const promises = details.map((detail) => {
         if (!relevantStations.includes(detail.id)) {
             return;
         }
@@ -109,9 +109,11 @@ async function sendOutputInvoke (relevantStations) {
             msg = msg.slice(0, -3);
         }
 
-        this.config.outputChannels.forEach((channel) => {
-            DiscordManager.send(channel, msg);
+        const promises = this.config.outputChannels.map((channel) => {
+            return DiscordManager.send(channel, msg, false);
         });
+        return Promise.all(promises);
     });
+    return Promise.all(promises);
 }
 

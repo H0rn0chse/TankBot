@@ -1,3 +1,6 @@
+import * as fs from "fs";
+import { dirname } from "path";
+
 import { console } from "../globals.js";
 import { CommandManager } from "./CommandManager.js";
 
@@ -32,6 +35,10 @@ class _Debug {
         const time = new Date().toISOString();
         const message = `${severity} ${time}: ${component}\n${msg}`;
         return message;
+    }
+
+    logToFile (err) {
+        fs.appendFileSync(`${dirname}/process.log`, `${new Date().toISOString()} - Logging exception: ${err}\n${err.stack || " no stack"}\n`);
     }
 }
 

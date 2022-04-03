@@ -103,7 +103,7 @@ async function registerCommands (newCommands, oldCommands) {
         if (!newCommandMap[name]) {
 
             console.log(`🟨 Deleting command "${command.name}"`);
-            DiscordManager.deleteCommand(command.id);
+            await DiscordManager.deleteCommand(command.id);
         }
     }
 

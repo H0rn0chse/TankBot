@@ -69,8 +69,8 @@ class _DataManger {
         return path;
     }
 
-    fetchData () {
-        DiscordManager.setStatus("for new Data", ACTIVITY_TYPES.WATCHING);
+    async fetchData () {
+        await DiscordManager.setStatus("for new Data", ACTIVITY_TYPES.WATCHING);
         Debug.log("Fetching data", COMPONENT);
         return fetch(this.getPriceUrl())
             .then(res => res.json())

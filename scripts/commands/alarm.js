@@ -69,7 +69,7 @@ async function invokeCheckAlarm (stationName, lastPrice, newPrice) {
             Debug.log(`Sending alarm to ${userId}`, COMPONENT);
             const message = `[ALARM]: ${stationName} hat den Preis für Super auf ${_intToPrice(newPrice)} gesenkt`;
             const user = await DiscordManager.getUser(userId);
-            await DiscordManager.dm(user, message);
+            return DiscordManager.dm(user, message);
         } else {
             // alarm was set with last check
             if (lastPrice <= data.minValue) {
@@ -77,7 +77,7 @@ async function invokeCheckAlarm (stationName, lastPrice, newPrice) {
                 Debug.log(`Clearing alarm to ${userId}`, COMPONENT);
                 const message = `[ENTWARNUNG]: ${stationName} hat den Preis für Super wieder auf ${_intToPrice(newPrice)} erhöht`;
                 const user = await DiscordManager.getUser(userId);
-                await DiscordManager.dm(user, message);
+                return DiscordManager.dm(user, message);
             }
         }
     });

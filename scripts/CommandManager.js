@@ -73,7 +73,12 @@ class _CommandManager {
             return;
         }
 
-        await handler.apply(this, args);
+        try  {
+            await handler.apply(this, args);
+        } catch (err) {
+            Debug.logToFile(err);
+        }
+
     }
 
     async execCommand (discordMessage, command, args, isDM) {
@@ -84,15 +89,13 @@ class _CommandManager {
         }
 
         if (this.currentCommand) {
-            DiscordManager.reply(discordMessage, "There is already a command running! Please wait until it's done and submit your command again");
-            return;
+            return DiscordManager.reply(discordMessage, "There is already a command running! Please wait until it's done and submit your command again");
         }
 
         const handler = isDM ? this.dmCommands[command] : this.channelCommands[command];
 
         if (!handler) {
-            DiscordManager.reply(discordMessage, `The command "${command}" does not exist or is not enabled for this scope`);
-            return;
+            return DiscordManager.reply(discordMessage, `The command "${command}" does not exist or is not enabled for this scope`);
         }
 
         this.currentCommand = command;
@@ -109,7 +112,7 @@ class _CommandManager {
     async execInteraction (name, interaction) {
         const handler = this.interactions[name];
 
-        DiscordManager.setStatus("against new challenges", ACTIVITY_TYPES.COMPETING);
+        await DiscordManager.setStatus("against new challenges", ACTIVITY_TYPES.COMPETING);
 
         if (!handler) {
             await interaction.reply(`The command ${name} does not have a handler!`);
@@ -121,7 +124,7 @@ class _CommandManager {
             }
         }
 
-        DiscordManager.setStatus();
+        return DiscordManager.setStatus();
     }
 }
 

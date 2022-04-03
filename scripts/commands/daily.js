@@ -122,7 +122,7 @@ async function invokeSendDaily () {
         });
 
         const user = await DiscordManager.getUser(userId);
-        await DiscordManager.dm(user, message);
+        return DiscordManager.dm(user, message);
     });
     return Promise.all(promises);
 }
